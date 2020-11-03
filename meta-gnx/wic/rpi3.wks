@@ -1,0 +1,4 @@
+bootloader
+part /rpi --source bootimg-partition --ondisk mmcblk0 --fstype vfat --active --fixed-size 128M
+part / --source rootfs --rootfs-dir ${IMAGE_ROOTFS} --fstype ext4 --fixed-size 1024M
+part / --source rootfs --rootfs-dir ${IMAGE_ROOTFS} --fstype ext4 --fixed-size 1024M

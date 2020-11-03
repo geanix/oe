@@ -1,0 +1,33 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target-path = "/soc/spi@7e204000";
+
+		__overlay__ {
+			pinctrl-names = "default";
+			pinctrl-0 = <&spi0_gpio7>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "okay";
+			cs-gpios = <&gpio 8 0>, <&gpio 7 0>;
+
+			gpio@0 {
+				compatible = "microchip,mcp23s17";
+				reg = <0>;
+				gpio-controller;
+				#gpio-cells = <2>;
+				microchip,spi-present-mask = <0x01>;
+				spi-max-frequency = <1000000>;
+
+				gpio-line-names = "relay0", "relay1",
+						  "out0", "out1", "out2",
+						  "out3", "out4", "out5",
+						  "switch0", "switch1",
+						  "switch2", "switch3",
+						  "in0", "in1", "in2", "in3";
+			};
+		};
+	};
+};

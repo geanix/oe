@@ -1,0 +1,7 @@
+[Match]
+Name=eth*
+Name=usb*
+Name=enp*
+
+[Network]
+Bridge=br0

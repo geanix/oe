@@ -1,0 +1,10 @@
+[Unit]
+Description=Proxy that allows tcp connections to serial ports
+After=syslog.target network.target multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/sbin/ser2net -n
+
+[Install]
+WantedBy=multi-user.target

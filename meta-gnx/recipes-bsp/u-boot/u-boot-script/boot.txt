@@ -1,0 +1,19 @@
+setenv mmcload 'ext4load mmc 0:$part $loadaddr /boot/Image; ext4load mmc 0:$part $fdt_addr_r /boot/$fdtfile'
+
+setenv set_bootargs  'setenv bootargs root=/dev/mmcblk0p$part rootwait bootslot=$slot'
+setenv boot          'run set_bootargs mmcload && booti $loadaddr - $fdt_addr_r'
+setenv boot_a        'setenv part 2; run boot'
+setenv boot_b        'setenv part 3; run boot'
+
+test -n "$bootslots"   || setenv bootslots a b
+
+setenv j
+for j in "$bootslots"; do
+  setenv slot $j
+
+  # run boot command
+  echo BOOT: $slot
+  run boot_$slot
+done
+
+env delete j

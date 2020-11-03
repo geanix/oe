@@ -1,0 +1,44 @@
+%YAML 1.1
+---
+#
+# This is a ser2net configuration file, showing examples of all
+# sorts of things.  It's all commented out so it's safe to put
+# in /etc/ser2net/ser2net.yaml.
+#
+# This is described in ser2net.yaml(5)
+
+# YAML gives an error on empty files, just add something so the
+# error doesn't happen.
+define: &confver 1.0
+
+default:
+  name: speed
+  value: 115200n81
+
+# # Enable CLOCAL by default
+default:
+  name: local
+  value: true
+  class: serialdev
+
+define: &serbase "/dev/serial/by-path/platform-3f980000.usb-usb"
+define: &serusb2 "*(serbase)-0:1.2:1.0-port0"
+define: &serusb3 "*(serbase)-0:1.3:1.0-port0"
+define: &serusb4 "*(serbase)-0:1.4:1.0-port0"
+define: &serusb5 "*(serbase)-0:1.5:1.0-port0"
+
+connection: &con1
+  accepter: telnet(rfc2217),tcp,2001
+  connector: serialdev,*(serusb2)
+
+connection: &con2
+  accepter: telnet(rfc2217),tcp,2002
+  connector: serialdev,*(serusb3)
+
+connection: &con3
+  accepter: telnet(rfc2217),tcp,2003
+  connector: serialdev,*(serusb4)
+
+connection: &con4
+  accepter: telnet(rfc2217),tcp,2004
+  connector: serialdev,*(serusb5)
